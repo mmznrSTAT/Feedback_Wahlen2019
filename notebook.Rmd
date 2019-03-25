@@ -1,15 +1,56 @@
 ---
-title: "Rückmeldungen zu den Wahlen im Kanton Zürich 2019"
-output: html_notebook
+title: "RÃ¼ckmeldungen zu den Wahlen im Kanton ZÃ¼rich 2019"
+output:
+  html_document:
+    df_print: paged
 ---
 
 Zusammenfassung zu den Rückmeldungen zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019.
 
-```{r}
+```{r, include = FALSE, echo=FALSE, warning=FALSE}
+#Setup
+
+library(tidyverse)
+library(ggplot2)
+library(openxlsx)
+
+```
+
+```{r, include = FALSE, echo=FALSE, warning=FALSE}
+
+#Import Data
+
+BesucherNachZeit <- read.csv("data/besucher.csv", sep=",", header= TRUE, fill=TRUE)
+
+BesucherNachZeit_bearbeitet <- BesucherNachZeit %>% 
+                                select(Uhrzeit = Bezeichnung, Eindeutige.Besucher, Besuche) %>% 
+                                gather("key","Anzahl", -Uhrzeit)
 
 
+Bewertung <- read.xlsx("data/rating.xlsx")
 
+```
 
+# Anzahl Besucher während des Wahlsonntags
+```{r, echo=  FALSE,  warning=FALSE }
 
+#plot the Visitor Data
+
+p_visitor <- ggplot(data=BesucherNachZeit_bearbeitet, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
+                geom_bar(stat="identity", position=position_dodge()) + 
+                theme(axis.text.x = element_text( angle=90)) 
+
+p_visitor
+```
+
+# Bewertungen der Seite
+```{r, echo = FALSE,  warning=FALSE}
+#plot the rating
+
+p_rating <- ggplot(data=Bewertung, aes(x=Anzahl.Sterne, y=Anzahl.Bewertungen)) +
+                geom_bar(stat="identity", fill="steelblue")  + 
+                coord_flip() +  
+                labs(y= "Anzahl Bewertungen", x = "Anzahl Sterne")
+p_rating
 ```
 
