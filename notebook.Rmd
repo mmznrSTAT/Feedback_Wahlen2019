@@ -1,8 +1,7 @@
 ---
-title: "RÃ¼ckmeldungen zu den Wahlen im Kanton ZÃ¼rich 2019"
-output:
-  html_document:
-    df_print: paged
+title: "Rückmeldungen zu den Wahlen im Kanton Zürich 2019"
+output: html_notebook
+
 ---
 
 Zusammenfassung zu den Rückmeldungen zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019.
@@ -43,7 +42,7 @@ p_visitor <- ggplot(data=BesucherNachZeit_bearbeitet, aes(x=Uhrzeit, y=Anzahl, f
 p_visitor
 ```
 
-# Bewertungen der Seite
+# Bewertung der Seite
 ```{r, echo = FALSE,  warning=FALSE}
 #plot the rating
 
