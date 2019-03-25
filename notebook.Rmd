@@ -1,0 +1,15 @@
+---
+title: "Rückmeldungen zu den Wahlen im Kanton Zürich 2019"
+output: html_notebook
+---
+
+Zusammenfassung zu den Rückmeldungen zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019.
+
+```{r}
+
+
+
+
+
+```
+
