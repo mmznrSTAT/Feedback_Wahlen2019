@@ -37,7 +37,8 @@ Bewertung <- read.xlsx("data/rating.xlsx")
 
 p_visitor <- ggplot(data=BesucherNachZeit_bearbeitet, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
                 geom_bar(stat="identity", position=position_dodge()) + 
-                theme(axis.text.x = element_text( angle=90)) 
+                theme(axis.text.x = element_text( angle=90)) +
+                guides(fill=guide_legend(title="Typ")) 
 
 p_visitor
 ```
