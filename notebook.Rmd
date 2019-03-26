@@ -68,7 +68,7 @@ Insgesamt hatte die Webseite www.wahlen.zh.ch am Wahlsonntag
 - 87'715 Eindeutige Besucher   
 - 1'541'788 Aktionen   
   
-Die durchschnittliche BEsuchszeit betrug knapp 12 Minuten. 
+Die durchschnittliche Besuchszeit betrug knapp 12 Minuten. 
 
 
 # Bewertung der Seite
@@ -100,7 +100,7 @@ Ein Problem gab es vor allem im Browser Chrome mit dem Caching der Webseiten. Di
 
 Eine einfache Ansicht die zeigt, welche Gebiete bereits ausgezählt sind und welche noch fehlen wurde gewünscht. 
 
-Dass das Geschlecht nicht in allen Exports zu Kandidierenden enthalten war, hat am Montag anch den Wahlen zu Mehrarbeit geführt. Der automatische Export des Geschlechts kann leider erst beim nächsten Release Wahl- und Abstimmungssoftware berücksichtigt werden. Für die National- und Ständeratswahlen im Herbst überlegen wir uns einen Workaround. 
+Dass das Geschlecht nicht in allen Exports zu Kandidierenden enthalten war, hat am Montag nach den Wahlen zu Mehrarbeit geführt. Der automatische Export des Geschlechts kann leider erst beim nächsten Release Wahl- und Abstimmungssoftware berücksichtigt werden. Für die National- und Ständeratswahlen im Herbst überlegen wir uns einen Workaround. 
 
 # Besucherzahlen
 
