@@ -63,7 +63,7 @@ Bewertung <- read.xlsx("data/rating.xlsx")
 p_visitor <- ggplot(data=BesucherNachZeit_bearbeitet, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
                 geom_bar(stat="identity", position=position_dodge()) + 
                 theme(axis.text.x = element_text( angle=90, vjust = 0.3)) +
-                guides(fill=guide_legend(title="Typ")) 
+                guides(fill=guide_legend(title="Typ")) + scale_y_continuous(labels=scales::comma_format(big.mark = "'"))
 
 grid.arrange(grobs = lapply(
 list(p_visitor),
@@ -84,7 +84,8 @@ p_visitor <- ggplot(data=aktionen, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
                 geom_bar(stat="identity", position=position_dodge()) + 
                 theme(axis.text.x = element_text( angle=90, vjust = 0.3)) +
                 guides(fill=guide_legend(title="Typ"))  +
-                theme(plot.margin=unit(c(0,0,0,6), "cm"))
+                theme(plot.margin=unit(c(0,0,0,6), "cm")) + 
+  scale_y_continuous(labels=scales::comma_format(big.mark = "'"))
 
 
  grid.arrange( grobs = lapply(
@@ -99,7 +100,7 @@ p_visitor <- ggplot(data=aktionen, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
 
 # Datendownload
 
-```{r, fig.width=8.5}
+```{r, echo=  FALSE,  warning=FALSE, fig.width=8.5}
 
 
 download_plot <- ggplot(data=downloads_top, aes(x=reorder(Bezeichnung,Anzahl), y=Anzahl, fill =key)) +
@@ -109,7 +110,8 @@ download_plot <- ggplot(data=downloads_top, aes(x=reorder(Bezeichnung,Anzahl), y
           guides(fill=guide_legend(title="Typ")) +
           theme(axis.text=element_text(size=9),
                 axis.title=element_text(size=9),
-                plot.margin=unit(c(0,0,0,0), "cm"))
+                plot.margin=unit(c(0,0,0,0), "cm")) + scale_y_continuous(labels=scales::comma_format(big.mark = "'"))
+
 
 
  grid.arrange( grobs = lapply(
