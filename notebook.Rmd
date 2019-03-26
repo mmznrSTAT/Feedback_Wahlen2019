@@ -25,7 +25,10 @@ BesucherNachZeit <- read.csv("data/besucher.csv", sep=",", header= TRUE, fill=TR
 
 
 
-downloads <- read.csv("data/downloads_20190324.csv", sep=",", header= TRUE, fill=TRUE)
+downloads <- read.csv("data/downloads_20190324.csv", sep=",", header= TRUE, fill=TRUE, stringsAsFactors =FALSE)
+
+downloads_top <- downloads %>% arrange(desc(Downloads)) 
+
 
 BesucherNachZeit_bearbeitet <- BesucherNachZeit %>% 
                                 select(Uhrzeit = Bezeichnung, Eindeutige.Besucher) %>% 
@@ -67,7 +70,7 @@ height = unit(10, "cm")
 
 p_visitor <- ggplot(data=aktionen, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
                 geom_bar(stat="identity", position=position_dodge()) + 
-                theme(axis.text.x = element_text( angle=90)) +
+                theme(axis.text.x = element_text( angle=90, vjust = 0.3)) +
                 guides(fill=guide_legend(title="Typ"))  +
                 theme(plot.margin=unit(c(0,0,0,6), "cm"))
 
@@ -80,6 +83,26 @@ p_visitor <- ggplot(data=aktionen, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
  ), ncol=2) 
 
 ```
+
+
+# Datendownload
+
+```{r}
+
+
+p1 <- ggplot(data=downloads_top[1:10,], aes(x=reorder(Bezeichnung, Downloads), y=Downloads)) +
+          geom_bar(stat="identity", fill="steelblue") + 
+          coord_flip() + 
+          guides(fill=FALSE) + 
+          labs(x="") + 
+          theme(axis.text=element_text(size=9),
+                axis.title=element_text(size=9))
+
+
+p1
+```
+
+
 
 
 # Bewertung der Seite
