@@ -5,15 +5,18 @@ output:
     df_print: paged
 ---
 
-Zusammenfassung zu den Rückmeldungen zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019.
+Analytics und Rückmeldungen zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019.
 
 ```{r, include = FALSE, echo=FALSE, warning=FALSE}
 #Setup
-library(egg)
-
+library(scales)
 library(tidyverse)
 library(ggplot2)
 library(openxlsx)
+library(stringr)
+
+library(egg)
+
 
 ```
 
@@ -25,7 +28,21 @@ BesucherNachZeit <- read.csv("data/besucher.csv", sep=",", header= TRUE, fill=TR
 
 
 
-downloads <- read.csv("data/downloads_20190324.csv", sep=",", header= TRUE, fill=TRUE)
+downloads <- read.csv("data/downloads_20190324.csv", sep=",", header= TRUE, fill=TRUE, stringsAsFactors =FALSE)
+
+downloads_top <- downloads %>% 
+                  top_n(10, Downloads) %>% 
+                  mutate(Bezeichnung = str_replace(Bezeichnung, "www.wahlen.zh.ch/wahlen2019/public/","")) %>%
+                  mutate(Bezeichnung = str_replace(Bezeichnung, "www.wahlen.zh.ch/wahlen2019/intern/","")) %>%  
+                  mutate(Bezeichnung = str_replace(Bezeichnung, "www.wahlen.zh.ch/wahlen2019/medien/","")) %>%
+                  mutate(Bezeichnung = str_replace(Bezeichnung, "www.wahlen.zh.ch/krdaten_staatsarchiv/","")) %>% 
+                  select(Bezeichnung, Downloads, Eindeutige.Downloads) %>% 
+                  gather("key", "Anzahl", -Bezeichnung) %>% 
+                  mutate(key = factor(key, levels = c("Eindeutige.Downloads" ,"Downloads" ))) 
+
+
+
+
 
 BesucherNachZeit_bearbeitet <- BesucherNachZeit %>% 
                                 select(Uhrzeit = Bezeichnung, Eindeutige.Besucher) %>% 
@@ -38,59 +55,31 @@ aktionen <- BesucherNachZeit %>%
 
 Bewertung <- read.xlsx("data/rating.xlsx")
 
-```
-
-# Anzahl Besucher pro Stunde
-```{r, echo=  FALSE,  warning=FALSE, fig.align="left"}
-
-#plot the Visitor Data
-
-p_visitor <- ggplot(data=BesucherNachZeit_bearbeitet, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
-                geom_bar(stat="identity", position=position_dodge()) + 
-                theme(axis.text.x = element_text( angle=90)) +
-                guides(fill=guide_legend(title="Typ")) 
-
-grid.arrange(grobs = lapply(
-list(p_visitor),
-set_panel_size,
-width = unit(10, "cm"),
-height = unit(10, "cm")
-)) 
-```
-
-* [Daten Besucher nach Zeit](data/besucher.csv) - csv
-
-# Aktionen pro Stunde
-```{r, echo=  FALSE,  warning=FALSE, fig.align="left"}
-
-#plot the Visitor Data
-
-p_visitor <- ggplot(data=aktionen, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
-                geom_bar(stat="identity", position=position_dodge()) + 
-                theme(axis.text.x = element_text( angle=90)) +
-                guides(fill=guide_legend(title="Typ"))  +
-                theme(plot.margin=unit(c(0,0,0,6), "cm"))
 
 
- grid.arrange( grobs = lapply(
- list(p_visitor),
- set_panel_size,
- width = unit(10, "cm"),
- height = unit(10, "cm")
- ), ncol=2) 
+
+stars <- c(paste(sprintf('\u2605')), paste(sprintf('\u2605'), sprintf('\u2605')),  paste(sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605')), paste(sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605')), paste(sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605') , sprintf('\u2605')) )
+
+Bewertung <- Bewertung %>% mutate(stars = stars)
 
 ```
+Insgesamt hatte die Webseite www.wahlen.zh.ch am Wahlsonntag  
+- 1'286'446 Downloads  
+- 87'715 Eindeutige Besucher   
+- 1'541'788 Aktionen   
+  
+Die durchschnittliche BEsuchszeit betrug knapp 12 Minuten. 
 
 
 # Bewertung der Seite
 ```{r, echo = FALSE,  warning=FALSE, fig.align="left"}
 #plot the rating
 
-p_rating <- ggplot(data=Bewertung, aes(x=Anzahl.Sterne, y=Anzahl.Bewertungen)) +
+p_rating <- ggplot(data=Bewertung, aes(x=stars, y=Anzahl.Bewertungen)) +
                 geom_bar(stat="identity", fill="steelblue")  + 
                 coord_flip() +  
-                labs(y= "Anzahl Bewertungen", x = "Anzahl Sterne") +
-                theme(plot.margin=unit(c(0,0,0,4), "cm"))
+                labs(y= "Anzahl Bewertungen", x="") +
+                theme(plot.margin=unit(c(0,0,0,4), "cm")) 
 
  grid.arrange( grobs = lapply(
  list(p_rating),
@@ -105,4 +94,87 @@ p_rating <- ggplot(data=Bewertung, aes(x=Anzahl.Sterne, y=Anzahl.Bewertungen)) +
 
 #ggarrange(p_visitor,p_rating,debug = TRUE)
 ```
+Leider sind die Bewertungen nicht verlässlich. Wir haben wiederholt die Rückmeldung bekommen, dass ein versehentlicher Tap zu einer Bewertung geführt habe. Oft wurde auch erwartet, dass bei einem Tap auf den Feedback-Balken ein Pop-Up erscheinen wird. Das war nicht der Fall. Wir werden das auf die Nationalrats- und Ständeratswahlen im Herbst anpassen. 
+
+Ein Problem gab es vor allem im Browser Chrome mit dem Caching der Webseiten. Dies hat dazu geführt, dass die Seite nicht immer richtig aktialisiert wurde. 
+
+Eine einfache Ansicht die zeigt, welche Gebiete bereits ausgezählt sind und welche noch fehlen wurde gewünscht. 
+
+Dass das Geschlecht nicht in allen Exports zu Kandidierenden enthalten war, hat am Montag anch den Wahlen zu Mehrarbeit geführt. Der automatische Export des Geschlechts kann leider erst beim nächsten Release Wahl- und Abstimmungssoftware berücksichtigt werden. Für die National- und Ständeratswahlen im Herbst überlegen wir uns einen Workaround. 
+
+# Besucherzahlen
+
+Die Daten zu den Besucherzahlen finden Sie hier:  
+* [Daten pro Stunde](data/besucher.csv) - csv  
+* [Downloads](data/downloads_20190324.csv) - csv  
+
+
+## Anzahl Besucher pro Stunde
+```{r, echo=  FALSE,  warning=FALSE, fig.align="left"}
+
+#plot the Visitor Data
+
+p_visitor <- ggplot(data=BesucherNachZeit_bearbeitet, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
+                geom_bar(stat="identity", position=position_dodge()) + 
+                theme(axis.text.x = element_text( angle=90, vjust = 0.3)) +
+                guides(fill=guide_legend(title="Typ")) + scale_y_continuous(labels=scales::comma_format(big.mark = "'"))
+
+grid.arrange(grobs = lapply(
+list(p_visitor),
+set_panel_size,
+width = unit(10, "cm"),
+height = unit(10, "cm")
+)) 
+```
+
+## Aktionen pro Stunde
+```{r, echo=  FALSE,  warning=FALSE, fig.align="left"}
+
+#plot the Visitor Data
+
+p_visitor <- ggplot(data=aktionen, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
+                geom_bar(stat="identity", position=position_dodge()) + 
+                theme(axis.text.x = element_text( angle=90, vjust = 0.3)) +
+                guides(fill=guide_legend(title="Typ"))  +
+                theme(plot.margin=unit(c(0,0,0,6), "cm")) + 
+  scale_y_continuous(labels=scales::comma_format(big.mark = "'"))
+
+
+ grid.arrange( grobs = lapply(
+ list(p_visitor),
+ set_panel_size,
+ width = unit(10, "cm"),
+ height = unit(10, "cm")
+ ), ncol=2) 
+
+```
+Schön zu sehen sind hier die Seiten-Refreshs vor der ersten Hochrechnung.
+
+
+## Datendownloads
+```{r, echo=  FALSE,  warning=FALSE, fig.width=8.5}
+
+
+download_plot <- ggplot(data=downloads_top, aes(x=reorder(Bezeichnung,Anzahl), y=Anzahl, fill =key)) +
+          geom_bar(stat="identity", position=position_dodge()) + 
+          coord_flip() + 
+          labs(x="") + 
+          guides(fill=guide_legend(title="Typ")) +
+          theme(axis.text=element_text(size=9),
+                axis.title=element_text(size=9),
+                plot.margin=unit(c(0,0,0,0), "cm")) + scale_y_continuous(labels=scales::comma_format(big.mark = "'"))
+
+
+
+ grid.arrange( grobs = lapply(
+ list(download_plot),
+ set_panel_size,
+ width = unit(10, "cm"),
+ height = unit(10, "cm")
+ )) 
+```
+
+Am meisten interessiert haben die Hochrenchungen, dicht gefolgt von den Ergebnissen der einzelnen Kandidaten.
+
+
 
