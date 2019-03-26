@@ -139,7 +139,7 @@ download_plot <- ggplot(data=downloads_top, aes(x=reorder(Bezeichnung,Anzahl), y
 p_rating <- ggplot(data=Bewertung, aes(x=stars, y=Anzahl.Bewertungen)) +
                 geom_bar(stat="identity", fill="steelblue")  + 
                 coord_flip() +  
-                labs(y= "Anzahl Bewertungen", x = "Anzahl Sterne") +
+                labs(y= "Anzahl Bewertungen", x="") +
                 theme(plot.margin=unit(c(0,0,0,4), "cm")) 
 
  grid.arrange( grobs = lapply(
