@@ -99,16 +99,17 @@ p_visitor <- ggplot(data=aktionen, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
 
 # Datendownload
 
-```{r, fig.width=9}
+```{r, fig.width=8.5}
 
 
 download_plot <- ggplot(data=downloads_top, aes(x=reorder(Bezeichnung,Anzahl), y=Anzahl, fill =key)) +
           geom_bar(stat="identity", position=position_dodge()) + 
           coord_flip() + 
           labs(x="") + 
+          guides(fill=guide_legend(title="Typ")) +
           theme(axis.text=element_text(size=9),
                 axis.title=element_text(size=9),
-                plot.margin=unit(c(0,8,0,8), "cm"))
+                plot.margin=unit(c(0,0,0,0), "cm"))
 
 
  grid.arrange( grobs = lapply(
