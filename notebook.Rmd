@@ -53,6 +53,13 @@ aktionen <- BesucherNachZeit %>%
 
 Bewertung <- read.xlsx("data/rating.xlsx")
 
+
+
+
+stars <- c(paste(sprintf('\u2605')), paste(sprintf('\u2605'), sprintf('\u2605')),  paste(sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605')), paste(sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605')), paste(sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605'), sprintf('\u2605') , sprintf('\u2605')) )
+
+Bewertung <- Bewertung %>% mutate(stars = stars)
+
 ```
 
 # Anzahl Besucher pro Stunde
@@ -129,11 +136,11 @@ download_plot <- ggplot(data=downloads_top, aes(x=reorder(Bezeichnung,Anzahl), y
 ```{r, echo = FALSE,  warning=FALSE, fig.align="left"}
 #plot the rating
 
-p_rating <- ggplot(data=Bewertung, aes(x=Anzahl.Sterne, y=Anzahl.Bewertungen)) +
+p_rating <- ggplot(data=Bewertung, aes(x=stars, y=Anzahl.Bewertungen)) +
                 geom_bar(stat="identity", fill="steelblue")  + 
                 coord_flip() +  
                 labs(y= "Anzahl Bewertungen", x = "Anzahl Sterne") +
-                theme(plot.margin=unit(c(0,0,0,4), "cm"))
+                theme(plot.margin=unit(c(0,0,0,4), "cm")) 
 
  grid.arrange( grobs = lapply(
  list(p_rating),
