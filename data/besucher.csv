@@ -1,0 +1,25 @@
+Bezeichnung,Eindeutige Besucher,Besuche,Aktionen,Benutzer,Maximale Aktionen pro Besuch,Von Besuchern verbrachte Gesamtzeit (in Sekunden),AbsprÅnge,Besuche mit Konversionen,Metadaten: segment
+00 Uhr,60,60,301,0,18,21233,7,0,visitStartServerHour==23
+01 Uhr,31,31,208,0,65,38771,8,0,visitStartServerHour==0
+02 Uhr,20,20,120,0,26,1214,8,0,visitStartServerHour==1
+03 Uhr,7,7,49,0,30,3128,2,0,visitStartServerHour==2
+04 Uhr,21,21,170,0,67,32931,11,0,visitStartServerHour==3
+05 Uhr,14,14,43,0,8,367,4,0,visitStartServerHour==4
+06 Uhr,63,63,326,2,18,7836,6,0,visitStartServerHour==5
+07 Uhr,198,198,991,0,22,21529,11,0,visitStartServerHour==6
+08 Uhr,424,425,14584,2,11270,121382,33,0,visitStartServerHour==7
+09 Uhr,702,703,10070,2,3085,175521,57,0,visitStartServerHour==8
+10 Uhr,1071,1071,20390,1,14454,188315,90,0,visitStartServerHour==9
+11 Uhr,1862,1862,56894,0,2954,1785394,118,0,visitStartServerHour==10
+12 Uhr,5630,5630,316000,0,7932,11114450,290,0,visitStartServerHour==11
+13 Uhr,7338,7339,253742,0,1820,10519826,325,0,visitStartServerHour==12
+14 Uhr,7885,7885,208421,0,1545,9236486,340,0,visitStartServerHour==13
+15 Uhr,8888,8889,189750,0,1475,8610132,384,0,visitStartServerHour==14
+16 Uhr,9982,9983,151105,0,727,7067344,430,0,visitStartServerHour==15
+17 Uhr,11206,11208,106961,0,131,4846473,562,0,visitStartServerHour==16
+18 Uhr,8609,8609,60089,1,101,2767637,555,0,visitStartServerHour==17
+19 Uhr,7601,7602,49658,1,83,2180139,599,0,visitStartServerHour==18
+20 Uhr,6249,6249,40200,0,104,1706252,535,0,visitStartServerHour==19
+21 Uhr,4823,4823,30729,1,113,1271879,458,0,visitStartServerHour==20
+22 Uhr,3469,3469,21592,0,64,803376,336,0,visitStartServerHour==21
+23 Uhr,1580,1580,9395,0,143,283764,174,0,visitStartServerHour==22
