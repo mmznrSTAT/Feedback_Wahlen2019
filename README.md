@@ -1,6 +1,6 @@
 # Feedback Wahlen 2019
 
-##Inhalt
+## Inhalt
 Rückmeldungen zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019 im Kanton Zürich
 
 ## Datengrundlage
