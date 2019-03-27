@@ -187,7 +187,7 @@ download_plot <- ggplot(data=downloads_top, aes(x=reorder(Bezeichnung,Anzahl), y
 Am meisten interessiert haben die Hochrenchungen, dicht gefolgt von den Ergebnissen der einzelnen Kandidaten.
 
 ## Gerätetyp
-```{r}
+```{r, echo=  FALSE,  warning=FALSE}
 
 p_geraetetyp <- ggplot(data=geraetetyp_bearbeitet, aes(x=reorder(typ,Anteil), y=Anteil)) +
           geom_bar(stat="identity", position=position_dodge(), fill = "steelblue") + 
