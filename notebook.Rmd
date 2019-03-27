@@ -5,7 +5,8 @@ output:
     df_print: paged
 ---
 
-Webanalyse zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019.
+Webanalyse zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019.  
+[Link zur Webseite](https://www.wahlen.zh.ch/wahlen2019/public/dist/index.html#/krw/hochrechnung)
 
 ```{r, include = FALSE, echo=FALSE, warning=FALSE}
 #Setup
