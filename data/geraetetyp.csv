@@ -1,0 +1,13 @@
+Bezeichnung,Eindeutige Besucher,Besuche,Aktionen,Benutzer,Maximale Aktionen pro Besuch,Von Besuchern verbrachte Gesamtzeit (in Sekunden),AbsprÅnge,Besuche mit Konversionen,Metadaten: segment,Metadaten: logo
+Smartphone,45771,45779,631260,0,2954,27499227,3031,0,deviceType==smartphone,plugins/Morpheus/icons/dist/devices/smartphone.png
+Desktop,29279,29293,695489,2,14454,26686809,1198,0,deviceType==desktop,plugins/Morpheus/icons/dist/devices/desktop.png
+Tablet,11509,11510,205721,1,4215,8040320,772,0,deviceType==tablet,plugins/Morpheus/icons/dist/devices/tablet.png
+Phablet,615,615,6541,1,715,290438,49,0,deviceType==phablet,plugins/Morpheus/icons/dist/devices/phablet.png
+unbekannt,520,521,2588,0,126,281112,292,0,,plugins/Morpheus/icons/dist/devices/unknown.png
+TV,12,12,107,0,25,3201,0,0,deviceType==tv,plugins/Morpheus/icons/dist/devices/tv.png
+Portable MediengerÑte,10,10,69,0,19,3803,1,0,deviceType==portable+media+player,plugins/Morpheus/icons/dist/devices/portable_media_player.png
+Spielekonsole,1,1,13,0,13,469,0,0,deviceType==console,plugins/Morpheus/icons/dist/devices/console.png
+Digitalkamera,,0,,,,,,,deviceType==camera,plugins/Morpheus/icons/dist/devices/camera.png
+Feature-Phone,,0,,,,,,,deviceType==feature+phone,plugins/Morpheus/icons/dist/devices/feature_phone.png
+PKW-Browser,,0,,,,,,,deviceType==car+browser,plugins/Morpheus/icons/dist/devices/car_browser.png
+Smart Display,,0,,,,,,,deviceType==smart+display,plugins/Morpheus/icons/dist/devices/smart_display.png

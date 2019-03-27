@@ -42,11 +42,21 @@ downloads_top <- downloads %>%
 
 
 
+geraetetyp <- read.csv("data/geraetetyp.csv", sep=",", header= TRUE, stringsAsFactors =FALSE)
+
+
+geraetetyp_bearbeitet <- geraetetyp %>% 
+                            mutate(typ = ifelse(Bezeichnung %in% c("Smartphone", "Desktop", "Tablet"), Bezeichnung, "rest"))%>%
+                            group_by(typ) %>% 
+                            summarize(Eindeutige.Besucher = sum(Eindeutige.Besucher, na.rm =TRUE)) %>% 
+                            mutate(Anteil = Eindeutige.Besucher/sum(Eindeutige.Besucher, na.rm =TRUE)*100)
+                          
+                            
 
 
 BesucherNachZeit_bearbeitet <- BesucherNachZeit %>% 
                                 select(Uhrzeit = Bezeichnung, Eindeutige.Besucher) %>% 
-                                gather("key","Anzahl", -Uhrzeit)
+                                gather("key","Anzahl", -Uhrzeit) 
 
 
 aktionen <- BesucherNachZeit %>% 
@@ -176,5 +186,27 @@ download_plot <- ggplot(data=downloads_top, aes(x=reorder(Bezeichnung,Anzahl), y
 
 Am meisten interessiert haben die Hochrenchungen, dicht gefolgt von den Ergebnissen der einzelnen Kandidaten.
 
+## Gerätetyp
+```{r}
+
+p_geraetetyp <- ggplot(data=geraetetyp_bearbeitet, aes(x=reorder(typ,Anteil), y=Anteil)) +
+          geom_bar(stat="identity", position=position_dodge(), fill = "steelblue") + 
+          coord_flip() + 
+          labs(x="", y="Anteil [%]") + 
+          theme(axis.text=element_text(size=9),
+                axis.title=element_text(size=9),
+                plot.margin=unit(c(0,0,0,0), "cm")) + scale_y_continuous(labels=scales::comma_format(big.mark = "'"))
+
+
+
+ grid.arrange( grobs = lapply(
+ list(p_geraetetyp),
+ set_panel_size,
+ width = unit(10, "cm"),
+ height = unit(10, "cm")
+ )) 
+
+
+```
 
 
