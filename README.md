@@ -1,4 +1,4 @@
-# Feedback Wahlen 2019
+# Webanalyse Wahlen 2019
 
 ## Inhalt
 Rückmeldungen zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019 im Kanton Zürich
@@ -12,5 +12,4 @@ Rückmeldungen zum Webauftritt und dem Datenservice während der Regierungsrats-
 * [Rechtliche Grundlagen](https://statistik.zh.ch/internet/justiz_inneres/statistik/de/ueber_uns/rechtliche_grundlagen/nutzungsregelungen.html)
 
 ## License
-
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

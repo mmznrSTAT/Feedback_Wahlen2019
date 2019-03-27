@@ -5,7 +5,7 @@ output:
     df_print: paged
 ---
 
-Analytics und Rückmeldungen zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019.
+Webanalyse zum Webauftritt und dem Datenservice während der Regierungsrats- und Kantonsratswahlen 2019.
 
 ```{r, include = FALSE, echo=FALSE, warning=FALSE}
 #Setup
@@ -46,7 +46,7 @@ geraetetyp <- read.csv("data/geraetetyp.csv", sep=",", header= TRUE, stringsAsFa
 
 
 geraetetyp_bearbeitet <- geraetetyp %>% 
-                            mutate(typ = ifelse(Bezeichnung %in% c("Smartphone", "Desktop", "Tablet"), Bezeichnung, "rest"))%>%
+                            mutate(typ = ifelse(Bezeichnung %in% c("Smartphone", "Desktop", "Tablet"), Bezeichnung, "Andere"))%>%
                             group_by(typ) %>% 
                             summarize(Eindeutige.Besucher = sum(Eindeutige.Besucher, na.rm =TRUE)) %>% 
                             mutate(Anteil = Eindeutige.Besucher/sum(Eindeutige.Besucher, na.rm =TRUE)*100)
@@ -160,6 +160,28 @@ p_visitor <- ggplot(data=aktionen, aes(x=Uhrzeit, y=Anzahl, fill=key)) +
 ```
 Schön zu sehen sind hier die Seiten-Refreshs vor der ersten Hochrechnung.
 
+## Gerätetyp
+```{r, echo=  FALSE,  warning=FALSE}
+
+p_geraetetyp <- ggplot(data=geraetetyp_bearbeitet, aes(x=reorder(typ,Anteil), y=Anteil)) +
+          geom_bar(stat="identity", position=position_dodge(), fill = "steelblue") + 
+          coord_flip() + 
+          labs(x="", y="Anteil [%]") + 
+          theme(axis.text=element_text(size=9),
+                axis.title=element_text(size=9),
+                plot.margin=unit(c(0,0,0,0), "cm")) + scale_y_continuous(labels=scales::comma_format(big.mark = "'"))
+
+
+
+ grid.arrange( grobs = lapply(
+ list(p_geraetetyp),
+ set_panel_size,
+ width = unit(10, "cm"),
+ height = unit(10, "cm")
+ )) 
+
+
+```
 
 ## Datendownloads
 ```{r, echo=  FALSE,  warning=FALSE, fig.width=8.5}
@@ -186,27 +208,8 @@ download_plot <- ggplot(data=downloads_top, aes(x=reorder(Bezeichnung,Anzahl), y
 
 Am meisten interessiert haben die Hochrenchungen, dicht gefolgt von den Ergebnissen der einzelnen Kandidaten.
 
-## Gerätetyp
-```{r, echo=  FALSE,  warning=FALSE}
-
-p_geraetetyp <- ggplot(data=geraetetyp_bearbeitet, aes(x=reorder(typ,Anteil), y=Anteil)) +
-          geom_bar(stat="identity", position=position_dodge(), fill = "steelblue") + 
-          coord_flip() + 
-          labs(x="", y="Anteil [%]") + 
-          theme(axis.text=element_text(size=9),
-                axis.title=element_text(size=9),
-                plot.margin=unit(c(0,0,0,0), "cm")) + scale_y_continuous(labels=scales::comma_format(big.mark = "'"))
-
-
-
- grid.arrange( grobs = lapply(
- list(p_geraetetyp),
- set_panel_size,
- width = unit(10, "cm"),
- height = unit(10, "cm")
- )) 
-
-
-```
+## Nutzungsregelung Daten
+* [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/)
+* [Rechtliche Grundlagen](https://statistik.zh.ch/internet/justiz_inneres/statistik/de/ueber_uns/rechtliche_grundlagen/nutzungsregelungen.html)
 
 
